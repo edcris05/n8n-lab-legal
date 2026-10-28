@@ -4,11 +4,11 @@ Sitio estático independiente del laboratorio privado. Responsable: **Edgar Cris
 
 El correo de los HTML es el contacto configurado en Meta. No se publica domicilio particular ni teléfono personal. El sitio no contiene scripts, formularios, analítica ni recursos externos automáticos.
 
-## Repositorio previsto y estado
+## Repositorio y estado
 
 Usuario GitHub confirmado por la cuenta autenticada localmente: **edcris05**.
-Nombre del repositorio público previsto: **n8n-lab-legal**.
-Se prepara Git local, sin copiar historial del proyecto privado. **No se creó un remoto ni se publicó el sitio.**
+Repositorio público independiente: **https://github.com/edcris05/n8n-lab-legal**.
+La publicación fue autorizada expresamente por el responsable. El historial es propio, sin copiar el del proyecto privado. La publicación del sitio conserva los avisos de borrador y no resuelve los pendientes documentados abajo. Comprobar el despliegue en Settings → Pages.
 
 Contenido permitido:
 
@@ -41,7 +41,7 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-githu
 2. Definir y aplicar retención e inventario de copias, revisión de logs y control de restauraciones. Revisar los límites del borrado por usuario.
 3. Confirmar cualquier dato legal adicional obligatorio. No inventar ni publicar domicilio particular, teléfono u otra información no autorizada.
 4. Revisar texto y fecha, resolver pendientes y sólo entonces retirar los avisos de borrador.
-5. Autorizar explícitamente la creación del remoto y la publicación. Preparar archivos no implica esa autorización ni garantiza aprobación de Meta.
+5. La autorización de publicación ya fue recibida. El alojamiento público de estos borradores no garantiza aprobación de Meta.
 
 Referencia legal oficial: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/texto
 Estas páginas describen la implementación; no certifican cumplimiento legal ni reemplazan la revisión del responsable.
@@ -56,27 +56,29 @@ python3 -m http.server 8090 --bind 127.0.0.1
 
 Revisar http://127.0.0.1:8090/ en escritorio/móvil, contacto y navegación. Detener con Ctrl+C. No es el alojamiento público.
 
-## Publicación futura: sólo después de autorización
+## Actualizaciones de la publicación
 
 Antes de subir, revisar `git status`, `git ls-files` y el historial. Deben contener exclusivamente los siete archivos públicos listados; nunca copiar el historial o remoto del laboratorio privado.
 
-Los comandos siguientes son instrucciones futuras. **No fueron ejecutados**:
+El remoto público ya fue creado con autorización. Para futuras actualizaciones revisadas, desde esta carpeta:
 
 ```bash
-gh repo create edcris05/n8n-lab-legal --public --source=. --remote=origin
+git add -- index.html privacidad.html terminos.html eliminacion.html styles.css .nojekyll README.md
+git diff --cached --check
+git commit -m "Actualizar documentación pública de n8n Lab"
 git push -u origin main
 ```
 
-Ejecutarlos únicamente desde esta carpeta independiente y con autorización. No usar `--push` antes de revisar el remoto.
+Ejecutarlos únicamente desde esta carpeta independiente y con autorización para publicar los cambios. Revisar el destino con `git remote -v` antes de subir.
 
 Después, en GitHub: **Settings → Pages → Deploy from a branch → main → /(root) → Save**. Confirmar HTTPS y que cada página abre sin sesión. GitHub puede tardar en completar el despliegue.
 
 Guía oficial:
 https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
 
-## URLs previstas para Meta
+## URLs de GitHub Pages para Meta
 
-Son direcciones previstas, no una afirmación de que ya estén publicadas:
+Verificar que estas direcciones respondan por HTTPS sin iniciar sesión después de cada despliegue:
 
 | Campo | URL |
 |---|---|
