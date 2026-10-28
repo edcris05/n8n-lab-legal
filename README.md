@@ -24,13 +24,17 @@ La herramienta administrativa de eliminación y sus pruebas se conservan fuera d
 
 ## Revisión efectiva de retención
 
-El 06 conserva localmente número remitente, texto, respuesta, identificadores, fechas, estados y solicitudes demo/humanas. Las consultas de auditoría no muestran contenido de participantes. No existe un conversationId separado en este flujo: el vínculo se basa en remitente e identificadores de mensajes; no se atribuyen conversaciones de otros laboratorios por conjetura.
+El receptor conserva número remitente, texto, respuesta, identificadores, fechas, estados y solicitudes demo/humanas. No hay un conversationId separado ni una vinculación fiable con conversaciones de otros laboratorios.
 
-El workflow 06 está configurado para no guardar datos de ejecuciones exitosas, fallidas ni manuales y no tiene datos fijados. Se encontraron cero ejecuciones guardadas de ese workflow. Los contenedores conservan diagnósticos y no tienen rotación de logs configurada. Hay copias de seguridad que requieren revisión por separado.
+Desde la activación, los mensajes y respuestas nuevos vencen a los **7 días**, junto con las solicitudes vinculadas. Los estados de entrega nuevos vencen a las **24 horas**. La depuración se ejecuta al iniciar y cada 60 minutos mientras funciona el servicio; los envíos en curso se excluyen y se señalan si siguen vencidos. Si el servicio está detenido, la revisión ocurre al reiniciar. Los datos anteriores quedaron preservados sin vencimiento retroactivo: necesitan revisión manual. La lista permitida tiene retirada manual y no se elimina con el TTL de mensajes.
 
-Existe un procedimiento privado de borrado selectivo por usuario, probado con datos ficticios: simulación sin cambios, huella de confirmación, comprobación de servicio detenido/bot apagado, eliminación en transacción y verificación de conservación de terceros. Trata una base por vez y permite repetir la revisión para backups concretos. No se usó para eliminar datos reales durante las pruebas.
+El workflow 06 mantiene desactivado el guardado de datos de ejecución y no tiene datos fijados; se verificaron cero ejecuciones guardadas. Los logs actuales no tienen rotación activa: está preparada una configuración de tres archivos de 1 MiB, pero requiere una intervención posterior. Esto limita por volumen, no por días; el vencimiento temporal de logs sigue pendiente.
 
-Límites: estados no atribuibles, logs compartidos, otras exportaciones, restauraciones y registros de proveedores requieren tratamiento adicional. No hay TTL, purga programada, borrado físico garantizado ni eliminación de todas las copias. No se promete una capacidad integral inexistente.
+No se encontró una tarea automática de backups y las dos copias SQLite conocidas no tienen tablas del 06. La pauta es no incorporar conversaciones a nuevas copias manuales. La auditoría sólo comprueba el directorio conocido y avisa si encuentra registros 06; no elimina archivos ni descubre snapshots externos.
+
+El borrado selectivo inmediato por solicitud está probado con datos ficticios sobre el esquema actualizado. Usa simulación, huella, confirmación, bot apagado y servicio detenido; verifica conservación de terceros. No se ejecutó contra datos reales. No cubre logs, copias externas, proveedores ni datos no atribuibles. No se garantiza borrado forense ni se implementa un registro permanente automático de supresiones.
+
+La activación conservó los datos originales y backups, comprobados mediante huellas. Se dispone de una auditoría local de sólo lectura, fuera de este repositorio, que informa estado de tarea, vencidos, datos anteriores, configuración n8n, logs y copias conocidas sin imprimir teléfonos o mensajes. Los scripts privados y resultados no deben publicarse aquí.
 
 GitHub Pages también registra IP de visitantes por seguridad, según su documentación:
 https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection
@@ -38,10 +42,10 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-githu
 ## Pendientes antes de publicar como política definitiva
 
 1. Confirmar la supervisión del correo y la gestión humana de solicitudes.
-2. Definir y aplicar retención e inventario de copias, revisión de logs y control de restauraciones. Revisar los límites del borrado por usuario.
+2. Resolver tratamiento de registros anteriores, logs actuales y copias externas; controlar restauraciones. La retención automática ya está activa para registros nuevos, con las excepciones indicadas.
 3. Confirmar cualquier dato legal adicional obligatorio. No inventar ni publicar domicilio particular, teléfono u otra información no autorizada.
 4. Revisar texto y fecha, resolver pendientes y sólo entonces retirar los avisos de borrador.
-5. La autorización de publicación ya fue recibida. El alojamiento público de estos borradores no garantiza aprobación de Meta.
+5. La versión inicial y esta actualización cuentan con autorización expresa de publicación. El alojamiento público no garantiza aprobación de Meta; futuras actualizaciones necesitan su correspondiente autorización.
 
 Referencia legal oficial: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/texto
 Estas páginas describen la implementación; no certifican cumplimiento legal ni reemplazan la revisión del responsable.
